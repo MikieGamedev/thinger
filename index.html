@@ -117,6 +117,54 @@
 
       document.body.appendChild(script);
 
+        // Function to enter fullscreen mode
+        function enterFullscreen() {
+            var container = document.getElementById('game-container');
+            if (container.requestFullscreen) {
+                container.requestFullscreen();
+            } else if (container.mozRequestFullScreen) { // Firefox
+                container.mozRequestFullScreen();
+            } else if (container.webkitRequestFullscreen) { // Chrome, Safari and Opera
+                container.webkitRequestFullscreen();
+            } else if (container.msRequestFullscreen) { // IE/Edge
+                container.msRequestFullscreen();
+            }
+        }
+
+        // Check if the document is already in fullscreen
+        function isFullscreen() {
+            return document.fullscreenElement || document.mozFullScreenElement || document.webkitFullscreenElement || document.msFullscreenElement;
+        }
+
+        // Toggle fullscreen on page load
+        window.onload = function() {
+            // Optionally enter fullscreen when the page loads
+            if (!isFullscreen()) {
+                enterFullscreen();
+            }
+
+            // Add event listener for fullscreen changes
+            document.addEventListener('fullscreenchange', function() {
+                if (!isFullscreen()) {
+                    enterFullscreen();
+                }
+            });
+            document.addEventListener('webkitfullscreenchange', function() {
+                if (!isFullscreen()) {
+                    enterFullscreen();
+                }
+            });
+            document.addEventListener('mozfullscreenchange', function() {
+                if (!isFullscreen()) {
+                    enterFullscreen();
+                }
+            });
+            document.addEventListener('MSFullscreenChange', function() {
+                if (!isFullscreen()) {
+                    enterFullscreen();
+                }
+            });
+        };
     </script>
   </body>
 </html>
